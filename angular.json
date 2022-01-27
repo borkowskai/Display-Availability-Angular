@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "display-availabilities": "apps/display-availabilities",
+    "display-availabilities-e2e": "apps/display-availabilities-e2e"
+  }
+}

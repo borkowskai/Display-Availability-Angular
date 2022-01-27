@@ -1,0 +1,28 @@
+{
+  "root": "apps/display-availabilities-e2e",
+  "sourceRoot": "apps/display-availabilities-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/display-availabilities-e2e/cypress.json",
+        "devServerTarget": "display-availabilities:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "display-availabilities:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/display-availabilities-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["display-availabilities"]
+}
