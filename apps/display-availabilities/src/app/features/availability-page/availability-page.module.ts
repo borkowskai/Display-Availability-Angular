@@ -5,7 +5,6 @@ import { AvailabilityViewComponent } from './views/availability-view/availabilit
 import { AvailabilityRightComponent } from './components/availability-right/availability-right.component';
 
 
-
 @NgModule({
   declarations: [ AvailabilityViewComponent, AvailabilityRightComponent
   ],
