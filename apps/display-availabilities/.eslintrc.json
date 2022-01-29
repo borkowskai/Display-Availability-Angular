@@ -30,7 +30,9 @@
     {
       "files": ["*.html"],
       "extends": ["plugin:@nrwl/nx/angular-template"],
-      "rules": {}
+      "rules": {
+        "no-inferrable-types": true
+      }
     }
   ]
 }

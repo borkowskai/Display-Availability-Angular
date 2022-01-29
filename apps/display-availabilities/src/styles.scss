@@ -3,3 +3,5 @@
 @import './styles/variables';
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "bootstrap";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
