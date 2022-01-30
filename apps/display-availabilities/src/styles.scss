@@ -1,7 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import './styles/base';
 @import './styles/variables';
-@import "~bootstrap/dist/css/bootstrap.min.css";
-@import "bootstrap";
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap';
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+body {
+  background-color: $app-background;
+}

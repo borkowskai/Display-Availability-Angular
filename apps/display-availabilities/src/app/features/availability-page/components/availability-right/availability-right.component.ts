@@ -18,7 +18,7 @@ export class AvailabilityRightComponent implements OnInit {
 
   maxDays: number = 6;
   currentMeetingReason = 'culturalFit';
-  meetingReason: MeetingReason[] = [
+  meetingReasons: MeetingReason[] = [
     {
       reason: 'culturalFit',
       motive_id: '61eea367ddf6c500149ae2cc',
@@ -96,7 +96,7 @@ export class AvailabilityRightComponent implements OnInit {
 
       if (compared) {
         let availabilitiesDuration = res.duration;
-        let slotDuration = this.meetingReason.find(
+        let slotDuration = this.meetingReasons.find(
           (reason) => reason.reason === this.currentMeetingReason
         )?.duration;
         if (availabilitiesDuration && slotDuration) {

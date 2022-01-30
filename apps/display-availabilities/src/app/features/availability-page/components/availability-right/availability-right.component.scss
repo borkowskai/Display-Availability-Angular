@@ -1,5 +1,50 @@
+// TODO find the way to include variables.scss it in the project
+
+.container {
+  background-color: white;
+}
+
+thead {
+  font-size: 0.8rem;
+  font-weight: 100;
+  span {
+    color: #9c727d;
+    font-size: 0.6rem;
+  }
+}
+
+mat-icon {
+  color: rgba(#9c727d, 0.3);
+}
+
+button {
+  border: none !important;
+  &:hover,
+  &:focus,
+  &:active,
+  &:target {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+button.slot {
+  background-color: #f3effb;
+  font-size: 0.8rem;
+  color: #554a9d;
+
+  &:focus,
+  &:active {
+    background-color: #643dae;
+    color: white;
+  }
+  &:hover {
+    border: 1px solid rgba(#643dae, 0.3) !important;
+  }
+}
+
 button.meeting {
   text-align: center;
   display: block;
   width: 100%;
+  background-color: #814a58;
 }
