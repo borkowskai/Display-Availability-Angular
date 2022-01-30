@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/display-availabilities",
         "index": "apps/display-availabilities/src/index.html",
@@ -18,7 +20,10 @@
           "apps/display-availabilities/src/favicon.ico",
           "apps/display-availabilities/src/assets"
         ],
-        "styles": ["apps/display-availabilities/src/styles.scss"],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/display-availabilities/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -83,7 +88,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/display-availabilities"],
+      "outputs": [
+        "coverage/apps/display-availabilities"
+      ],
       "options": {
         "jestConfig": "apps/display-availabilities/jest.config.js",
         "passWithNoTests": true

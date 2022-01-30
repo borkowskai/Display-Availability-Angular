@@ -1,1 +1,39 @@
-<p>availability-right works!</p>
+<div class="container py-3">
+  <table class="d-flex flex-row">
+    <ng-container *ngIf="days.length > 0  && days[0].dateFR">
+      <mat-icon [hidden]="days[0].dateFR === today" (click)="previousDays()">chevron_left</mat-icon>
+    </ng-container>
+    <ng-container *ngFor="let day of days">
+      <div class="d-flex flex-column">
+        <thead>
+          <tr>
+            <th class="text-center">
+              <div class="d-flex flex-column mx-2">
+                <span>{{ day.weekDay }}</span>
+                {{ day.dateFR }}
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let slot of day.slots">
+            <tr>
+              <td>
+                <button class="btn btn-secondary btn-sm m-1 slot">
+                  {{slot}}
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </div>
+
+    </ng-container>
+    <mat-icon (click)="nextDays()">chevron_right</mat-icon>
+  </table>
+  <div *ngIf="noSlots" class="alert alert-warning text-center" role="alert">
+    No slots available
+  </div>
+  <button class="btn btn-secondary meeting mt-3">
+    Prendre rendez-vous</button>
+</div>
