@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { map } from 'rxjs/operators';
 
+// to avoid relative imports create index.ts (+ config in tsConfig)
 import { AvailabilityRequest } from './../../../../core/models/availability-request';
 import { AvailabilityResponse } from './../../../../core/models/availability-response';
 import { RequestService } from './../../../../core/services/request.service';
@@ -59,7 +60,11 @@ export class AvailabilityRightComponent implements OnInit {
     };
     this.requestService
       .checkAvailabilities(request)
-      .pipe()
+      .pipe(
+        map((availabilities) => {
+          return availabilities;
+        })
+      )
       .subscribe({
         next: (res) => {
           this.availabilities = res;
@@ -71,19 +76,24 @@ export class AvailabilityRightComponent implements OnInit {
 
   setCalendar(res: AvailabilityResponse[]): DateType[] {
     this.noSlots = true;
-    for (let i = 1; i <= this.maxDays; i++) {
-      let slots = this.setSlots(res, this.fromDate);
-      let day: string = moment(this.fromDate).format('MMM D');
-      let weekDay: string = moment(this.fromDate).format('dd').toUpperCase();
+    for (let i = 0; i < this.maxDays; i++) {
+      // TODO remove everywere toDate and use moment.Moment
+      const currentDate: moment.Moment = moment(this.fromDate).add(i, 'days');
+
+      let slots = this.setSlots(res, currentDate);
+      let day: string = moment(currentDate).format('MMM D');
+      let weekDay: string = moment(currentDate).format('dd').toUpperCase();
 
       this.noSlots = this.noSlots && slots.length === 0;
       this.days.push({ dateFR: day, weekDay: weekDay, slots: slots });
-      this.fromDate = moment(this.fromDate).add(1, 'days').toDate();
     }
     return this.days;
   }
 
-  setSlots(responses: AvailabilityResponse[], dateFrom: Date): string[] {
+  setSlots(
+    responses: AvailabilityResponse[],
+    dateFrom: moment.Moment
+  ): string[] {
     let slots: string[] = [];
     for (let res of responses) {
       let dataAPI: Date | undefined = res.startAt;
@@ -91,10 +101,9 @@ export class AvailabilityRightComponent implements OnInit {
       // it has to be store in new variable - moment is mutable
       let firstDate: Date = moment(dataAPI).startOf('day').toDate();
       let secondDate: Date = moment(dateFrom).startOf('day').toDate();
-      let compared = moment(firstDate).isSame(secondDate);
-      let timing = moment(dateFrom).isAfter(dataAPI);
+      let isSameDay = moment(firstDate).isSame(secondDate);
 
-      if (compared) {
+      if (isSameDay) {
         let availabilitiesDuration = res.duration;
         let slotDuration = this.meetingReasons.find(
           (reason) => reason.reason === this.currentMeetingReason
@@ -104,14 +113,10 @@ export class AvailabilityRightComponent implements OnInit {
             availabilitiesDuration / slotDuration
           );
 
-          let startTime: Date = moment(dataAPI).toDate();
-          if (timing) {
-            slots.push(moment(startTime).format('HH:mm'));
-          }
+          for (let i = 0; i < numberOfSlots; i++) {
+            let startTime = moment(dataAPI).add(slotDuration * i, 'minutes');
 
-          for (let i = 0; i < numberOfSlots - 1; i++) {
-            startTime = moment(startTime).add(slotDuration, 'minutes').toDate();
-            if (timing) {
+            if (moment().isBefore(startTime)) {
               slots.push(moment(startTime).format('HH:mm'));
             }
           }
@@ -143,7 +148,7 @@ export class AvailabilityRightComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    //TODO unsubscribe
+    // TODO: unsubscribe => it could be takeUntil during subscribe, or list of Observable set to []
   }
 }
 interface DateType {

@@ -3,6 +3,7 @@
     <ng-container *ngIf="days.length > 0  && days[0].dateFR">
       <mat-icon [hidden]="days[0].dateFR === today" (click)="previousDays()">chevron_left</mat-icon>
     </ng-container>
+    <!-- check how to work with trackBy in ngFor -->
     <ng-container *ngFor="let day of days">
       <div class="d-flex flex-column">
         <thead>
